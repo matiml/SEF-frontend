@@ -1,0 +1,27 @@
+.item-list {
+    max-height: 2em;
+    width: 100%;
+    border-bottom: 1px solid #333;   
+    display: flex;
+    align-items: center;
+    user-select: none;
+    cursor: pointer;
+
+    .item-name {
+        transition: all .5s ease;
+        margin-left: 1.2em;
+        text-transform: capitalize;
+    }
+
+    &:hover {
+        background-color: #f0f8ff;
+    }
+
+    &.isActive {
+        background-color: #fff;
+
+        .item-name {
+            font-weight: 600;
+        }
+    }
+}

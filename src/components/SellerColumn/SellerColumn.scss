@@ -1,0 +1,14 @@
+.seller {
+    background-color: #d9f3f3;
+    flex: 0.25;
+    border-right: 2px solid #999;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h5 {
+        width: 100%;
+    }
+}

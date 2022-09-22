@@ -1,0 +1,47 @@
+.messages {
+    background-color: #e0f5eb;
+    flex: 0.604;
+    height: 100%;
+    
+    .chats {
+        display: flex;
+        flex-direction: column;
+        height: fit-content;
+        padding: 1em 2em;
+    
+        .msg {
+            padding: 0.5em 0.7em;
+            min-width: 35%;
+            max-width: 75%;
+            margin-bottom: 0.5em;
+            align-self: flex-start;
+            border: 1px solid rgba(212, 212, 212, 0.61);
+            border-radius: 10px;
+            background-color: #91dac07c;
+    
+            &.from-me {
+                align-self: flex-end;
+                background-color: #76ce767c;
+            }
+            
+            div {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin: 0.25em 0 0 0;
+                
+                span {   
+                    font-family: 'Montserrat', sans-serif;
+                    font-size: 0.59em;
+                    font-weight: 600;
+                    color: #111111b0;
+                    text-transform: capitalize;
+                    
+                    &.hour {
+                        color: #000000b5;
+                    }
+                }
+            }
+        }
+    }
+}
