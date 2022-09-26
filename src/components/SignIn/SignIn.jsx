@@ -6,7 +6,7 @@ import './SignIn.scss';
 import QRCode from "react-qr-code";
 import io from 'socket.io-client';
 
- const  socket = io('http://localhost:4000')
+ const  socket = io('https://sef-production.up.railway.app')
 
 
 function SignIn() {
@@ -77,7 +77,7 @@ function SignIn() {
 
 	const sellersFetch = async () => {
 		// '/vendedores'
-		const response = await fetch('http://localhost:4000/vendedores');
+		const response = await fetch('https://sef-production.up.railway.app/vendedores');
 		const sellersJSON = await response.json();
 		const data = sellersJSON.map(seller => seller.name)
 		setSellers(data);

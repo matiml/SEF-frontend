@@ -10,7 +10,7 @@ function ClientsColumn({ selectedSeller = {}, setSelectedClient, selectedClient 
 
     const clientsFetch = async() => {
         // '/vendedores/${selectedSeller.id}/clientes'
-        const response = await fetch(`http://localhost:4000/vendedores/${selectedSeller.number}/clientes`);
+        const response = await fetch(`https://sef-production.up.railway.app/vendedores/${selectedSeller.number}/clientes`);
         const json = await response.json();
         console.log(response);
         console.log(json);

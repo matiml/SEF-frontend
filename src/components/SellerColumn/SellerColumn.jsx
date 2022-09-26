@@ -13,7 +13,7 @@ function SellerColumn({ setSelectedSeller, selectedSeller = {}}) {
 
     const sellersFetch = async() => {
         // '/vendedores'
-        const response = await fetch('http://localhost:4000/vendedores');
+        const response = await fetch('https://sef-production.up.railway.app/vendedores');
         const json = await response.json();
         setSellerData(json);
         setFetchingData(false);
