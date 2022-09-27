@@ -88,6 +88,7 @@ function SignIn() {
 	return (
 		<div className="sign-in">
 			<form className="name-input">
+			<h5>Ingresar nombre de vendedor:</h5>
 				<input
 					type="text"
 					placeholder="Ingresa tu nombre"
