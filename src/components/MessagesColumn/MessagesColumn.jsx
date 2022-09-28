@@ -16,7 +16,7 @@ function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
             mensajesFetch()
         });
 
-        return socket.off("newMessage")
+        return () => socket.off("newMessage");
     }, [selectedClient])
 
     const mensajesFetch = async() => {
