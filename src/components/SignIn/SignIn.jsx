@@ -77,7 +77,7 @@ function SignIn() {
 
 	const sellersFetch = async () => {
 		// '/vendedores'
-		const response = await fetch('https://sef-production.up.railway.app/vendedores');
+		const response = await fetch('https://sef-production-a2d4.up.railway.app/vendedores');
 		const sellersJSON = await response.json();
 		const data = sellersJSON.map(seller => seller.name)
 		setSellers(data);
