@@ -3,7 +3,7 @@ import ItemMessage from '../ItemMessage/ItemMessage';
 // import './MessagesColumn.scss';
 import io from 'socket.io-client';
 
-// const socket = io('https://sef-production-a2d4.up.railway.app')
+// const socket = io('https://sef-production.up.railway.app')
 
 function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
   const [messages, setMessages] = useState([]);
@@ -23,7 +23,7 @@ function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
 
     const mensajesFetch = async() => {
         // '/vendedores/${selectedClient.id}/mensajes'
-        const response = await fetch(`https://sef-production-a2d4.up.railway.app/vendedores/${selectedClient.id}/mensajes`);
+        const response = await fetch(`https://sef-production.up.railway.app/vendedores/${selectedClient.id}/mensajes`);
         const json = await response.json();
         setMessages(json);
     }
@@ -37,7 +37,7 @@ function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
         <h5>Mensajes</h5>
         <div className="chats">
           {
-            reversed.map(message => {
+            messages.map(message => {
               return (
                 message.clienteId === selectedClient.id && selectedClient.vendedorNumber === selectedSeller.number
                 ? (<ItemMessage 
