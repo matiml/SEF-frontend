@@ -6,7 +6,11 @@ function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
   const [messages, setMessages] = useState([]);
 
     useEffect(() => {
-        setInterval(() => mensajesFetch(), 1000)
+        // const mensajesExistentes = messages.length;
+        mensajesFetch()
+        /* if (messages.length > mensajesExistentes) {
+          mensajesFetch()
+        } */
     }, [selectedClient])
 
     const mensajesFetch = async() => {
