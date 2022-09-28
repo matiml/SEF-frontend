@@ -7,7 +7,7 @@ function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
 
     useEffect(() => {
         setInterval(() => mensajesFetch(), 1000)
-    })
+    }, [selectedClient])
 
     const mensajesFetch = async() => {
         // '/vendedores/${selectedClient.id}/mensajes'
