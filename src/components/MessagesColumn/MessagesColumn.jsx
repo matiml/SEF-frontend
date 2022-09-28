@@ -15,7 +15,7 @@ function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
             console.log('hola')
             mensajesFetch()
         });
-    }, [])
+    }, [selectedClient])
 
     const mensajesFetch = async() => {
         // '/vendedores/${selectedClient.id}/mensajes'
