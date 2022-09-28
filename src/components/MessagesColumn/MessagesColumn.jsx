@@ -33,7 +33,7 @@ function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
         <h5>Mensajes</h5>
         <div className="chats">
           {
-            messages.map(message => {
+            messages.reverse.map(message => {
               return (
                 message.clienteId === selectedClient.id && selectedClient.vendedorNumber === selectedSeller.number
                 ? (<ItemMessage 
