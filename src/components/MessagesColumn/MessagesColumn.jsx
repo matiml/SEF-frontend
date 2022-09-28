@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import ItemMessage from '../ItemMessage/ItemMessage';
 // import './MessagesColumn.scss';
+import io from 'socket.io-client';
+
+const socket = io('https://sef-production-a2d4.up.railway.app')
 
 function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
   const [messages, setMessages] = useState([]);
@@ -8,6 +11,7 @@ function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
     useEffect(() => {
         // const mensajesExistentes = messages.length;
         mensajesFetch()
+        socket.on("newMessage", () => console.log('nuevo mensaje'))
         /* if (messages.length > mensajesExistentes) {
           mensajesFetch()
         } */

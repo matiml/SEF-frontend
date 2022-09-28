@@ -18,7 +18,6 @@ function SignIn() {
 	const [exists, setExists] = useState(); // Verificar si existe el nombre
 	const [QR, setQR] = useState(false); // Si pasa las verificaciones se provee el QR
 	const [isLoading, setIsLoading] = useState(false); // para determinar cuando se esta cargando
-	const [itsOk, setItsOk] = useState(); // para activar el loader
     const  [valueQR, setValueQR] =useState('');
 
 	useEffect(() => {
@@ -32,7 +31,6 @@ function SignIn() {
 			socket.emit("newSeller", newSellerName)
 			setIsLoading(true);
 			socket.on("qrNew", (qr)=>{
-				
 				setValueQR(qr);
 				setQR(true);
 				setIsLoading(false);
@@ -55,21 +53,10 @@ function SignIn() {
 
 		if (inputValue.length > 2) {
 			setNewSellerName(inputValue);
-			setItsOk(true);	
-
 		} else {
 			setNameError(true);
 		}
 	}
-
-	/* useEffect(() => {
-		if(itsOk) {
-			setIsLoading(true);
-      		setTimeout(() => {
-        		setIsLoading(false)
-      		}, 1700);
-		}
-	}, [QR, newSellerName, itsOk]) */
 
 	// FETCH VENDEDORES PARA VERIFICAR QUE NO HAYAN SESIONES REPETIDAS  
 	useEffect(() => {
