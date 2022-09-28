@@ -10,7 +10,12 @@ function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
 
     useEffect(() => {
         mensajesFetch()
-    }, [selectedClient])
+
+        socket.on("newMessage", () => {
+            console.log('hola')
+            mensajesFetch()
+        });
+    }, [])
 
     const mensajesFetch = async() => {
         // '/vendedores/${selectedClient.id}/mensajes'
@@ -19,10 +24,7 @@ function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
         setMessages(json);
     }
 
-      socket.on("newMessage", () => {
-            console.log('hola')
-            mensajesFetch()
-        });
+      
     
 
 
