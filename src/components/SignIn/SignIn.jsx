@@ -6,7 +6,7 @@ import './SignIn.scss';
 import QRCode from "react-qr-code";
 import io from 'socket.io-client';
 
- const  socket = io('https://sef-production.up.railway.app')
+ const  socket = io('https://sef-production-a2d4.up.railway.app')
 
 
 function SignIn() {
