@@ -11,7 +11,7 @@ function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
 
     const mensajesFetch = async() => {
         // '/vendedores/${selectedClient.id}/mensajes'
-        const response = await fetch(`https://sef-production.up.railway.app/vendedores/${selectedClient.id}/mensajes`);
+        const response = await fetch(`https://sef-production-a2d4.up.railway.app/vendedores/${selectedClient.id}/mensajes`);
         const json = await response.json();
         setMessages(json);
     }
