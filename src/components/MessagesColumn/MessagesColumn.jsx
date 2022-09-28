@@ -3,7 +3,7 @@ import ItemMessage from '../ItemMessage/ItemMessage';
 // import './MessagesColumn.scss';
 import io from 'socket.io-client';
 
-const socket = io('https://sef-production-a2d4.up.railway.app')
+// const socket = io('https://sef-production-a2d4.up.railway.app')
 
 function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
   const [messages, setMessages] = useState([]);
@@ -11,12 +11,14 @@ function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
     useEffect(() => {
         mensajesFetch()
 
-        socket.on("newMessage", () => {
+        /* 
+          PARA QUE RECIBA LOS MENSAJES EN TIEMPO REAL
+          socket.on("newMessage", () => {
             console.log('hola')
             mensajesFetch()
         });
 
-        return () => socket.off("newMessage");
+        return () => socket.off("newMessage"); */
     }, [selectedClient])
 
     const mensajesFetch = async() => {
@@ -26,7 +28,7 @@ function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
         setMessages(json);
     }
 
-      const reversed = messages.reverse();
+      // mostrar los mensajes al reves const reversed = messages.reverse();
     
 
 
