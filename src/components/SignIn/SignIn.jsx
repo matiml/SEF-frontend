@@ -30,11 +30,12 @@ function SignIn() {
 		
 		if(newSellerName && !exists) {
 			socket.emit("newSeller", newSellerName)
-			
+			setIsLoading(true);
 			socket.on("qrNew", (qr)=>{
 				
 				setValueQR(qr);
 				setQR(true);
+				setIsLoading(false);
 		  })
 		}
 	}
