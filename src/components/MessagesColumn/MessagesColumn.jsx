@@ -24,7 +24,7 @@ function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
         setMessages(json);
     }
 
-      
+      const reversed = messages.reverse();
     
 
 
@@ -33,7 +33,7 @@ function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
         <h5>Mensajes</h5>
         <div className="chats">
           {
-            messages.reverse.map(message => {
+            reversed.map(message => {
               return (
                 message.clienteId === selectedClient.id && selectedClient.vendedorNumber === selectedSeller.number
                 ? (<ItemMessage 
