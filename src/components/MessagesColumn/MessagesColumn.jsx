@@ -20,8 +20,11 @@ function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
     }
 
     useEffect(() => {
-      socket.on("newMessage", () => mensajesFetch());
-    }, [])
+      socket.on("newMessage", () => {
+            console.log('hola')
+            mensajesFetch()
+        });
+    })
 
 
   return (
