@@ -7,15 +7,12 @@ const socket = io('https://sef-production-a2d4.up.railway.app')
 
 function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
   const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState(false);
+  socket.on("newMessage", () => setNewMessage(!newMessage));
 
     useEffect(() => {
-        // const mensajesExistentes = messages.length;
         mensajesFetch()
-        socket.on("newMessage", () => console.log('nuevo mensaje'))
-        /* if (messages.length > mensajesExistentes) {
-          mensajesFetch()
-        } */
-    }, [selectedClient])
+    }, [selectedClient, newMessage])
 
     const mensajesFetch = async() => {
         // '/vendedores/${selectedClient.id}/mensajes'
