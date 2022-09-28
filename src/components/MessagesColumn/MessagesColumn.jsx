@@ -7,12 +7,10 @@ const socket = io('https://sef-production-a2d4.up.railway.app')
 
 function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
   const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState(false);
-  socket.on("newMessage", () => setNewMessage(!newMessage));
 
     useEffect(() => {
         mensajesFetch()
-    }, [selectedClient, newMessage])
+    }, [selectedClient])
 
     const mensajesFetch = async() => {
         // '/vendedores/${selectedClient.id}/mensajes'
@@ -20,6 +18,10 @@ function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
         const json = await response.json();
         setMessages(json);
     }
+
+    useEffect(() => {
+      socket.on("newMessage", () => mensajesFetch());
+    }, [])
 
 
   return (
