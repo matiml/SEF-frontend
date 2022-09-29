@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import ItemClient from '../ItemClient/ItemClient';
+import io from 'socket.io-client';
+
+const socket = io('https://sef-production-a2d4.up.railway.app');
 
 function ClientsColumn({ selectedSeller = {}, setSelectedClient, selectedClient = {} }) {
     const [clientData, setClientData] = useState([]);
@@ -12,6 +15,13 @@ function ClientsColumn({ selectedSeller = {}, setSelectedClient, selectedClient 
 
     useEffect(() => {
         clientsFetch()
+
+        // para que se agregue un nuevo chat en tiempo real
+        socket.on("newMessage", () => {
+            clientsFetch()
+        });
+
+        return () => socket.off("newMessage");
     }, [clientsFetch])
 
     return (
