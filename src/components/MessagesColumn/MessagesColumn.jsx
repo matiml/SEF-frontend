@@ -1,60 +1,57 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import ItemMessage from '../ItemMessage/ItemMessage';
-// import './MessagesColumn.scss';
+import './MessagesColumn.scss';
 import io from 'socket.io-client';
 
-const socket = io('https://sef-production-a2d4.up.railway.app')
+const socket = io('https://sef-production-a2d4.up.railway.app');
 
 function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
-  const [messages, setMessages] = useState([]);
+    const [messages, setMessages] = useState([]);
 
-    useEffect(() => {
-        mensajesFetch()
-
-        /* 
-          PARA QUE RECIBA LOS MENSAJES EN TIEMPO REAL
-          socket.on("newMessage", () => {
-            console.log('hola')
-            mensajesFetch()
-        });
-
-        return () => socket.off("newMessage"); */
-    }, [selectedClient])
-
-    const mensajesFetch = async() => {
-        // '/vendedores/${selectedClient.id}/mensajes'
+    const messagesFetch = useCallback(async () => {
         const response = await fetch(`https://sef-production-a2d4.up.railway.app/vendedores/${selectedClient.id}/mensajes`);
         const json = await response.json();
         setMessages(json);
-    }
+    }, [selectedClient.id])
 
-      // mostrar los mensajes al reves const reversed = messages.reverse();
-    
+    useEffect(() => {
+        messagesFetch()
 
+        // para recibir mensajes en tiempo real
+        socket.on("newMessage", () => {
+            messagesFetch()
+        });
 
-  return (
-    <div className="messages">
-        <h5>Mensajes</h5>
-        <div className="chats">
-          {
-            messages.map(message => {
-              return (
-                message.clienteId === selectedClient.id && selectedClient.vendedorNumber === selectedSeller.number
-                ? (<ItemMessage 
-                  key={message.id} 
-                  sellerName={selectedSeller.name}
-                  clientName={selectedClient.name}
-                  message={message.body} 
-                  fromMe={message.fromMe} 
-                  date={message.date} 
-                />)
-                : null
-              )
-            })
-          }
+        // ! limpiando el useEffect
+        return () => socket.off("newMessage");
+    }, [messagesFetch])
+
+    // mostrar los mensajes en orden ascendente
+    const reversedMessages = Array.from(messages.reverse());
+
+    return (
+        <div className="messages">
+            <h5>Mensajes</h5>
+            <div className="chats">
+                {
+                    reversedMessages.map(message => {
+                        return (
+                            message.clienteId === selectedClient.id && selectedClient.vendedorNumber === selectedSeller.number
+                                ? (<ItemMessage
+                                    key={message.id}
+                                    sellerName={selectedSeller.name}
+                                    clientName={selectedClient.name}
+                                    message={message.body}
+                                    fromMe={message.fromMe}
+                                    date={message.date}
+                                />)
+                                : null
+                        )
+                    })
+                }
+            </div>
         </div>
-    </div>
-  )
+    )
 }
 
 export default MessagesColumn;

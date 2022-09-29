@@ -1,48 +1,44 @@
-import React, { useState, useEffect } from 'react';
-
-// import QRImage from '../../assets/img/QR.png';
+import React, { useState, useEffect, useCallback } from 'react';
 import Loader from '../Loader/Loader';
 import './SignIn.scss';
 import QRCode from "react-qr-code";
 import io from 'socket.io-client';
 
- const  socket = io('https://sef-production-a2d4.up.railway.app')
+const socket = io('https://sef-production-a2d4.up.railway.app')
 
 
 function SignIn() {
 
-	const [sellers, setSellers] = useState([]); // Contiene los sellers del fetch
-	const [inputValue, setInputValue] = useState(''); // Lo que se escribe en el input
-	const [newSellerName, setNewSellerName] = useState(''); // Lo que se capto del input al hacer click
-	const [nameError, setNameError] = useState(); // Si el nombre no es valido
-	const [exists, setExists] = useState(); // Verificar si existe el nombre
-	const [QR, setQR] = useState(false); // Si pasa las verificaciones se provee el QR
-	const [isLoading, setIsLoading] = useState(false); // para determinar cuando se esta cargando
-    const  [valueQR, setValueQR] =useState('');
+	const [sellers, setSellers] = useState([]);
+	const [inputValue, setInputValue] = useState('');
+	const [newSellerName, setNewSellerName] = useState('');
+	const [nameError, setNameError] = useState();
+	const [exists, setExists] = useState();
+	const [QR, setQR] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
+	const [valueQR, setValueQR] = useState('');
 
-	useEffect(() => {
-		changeExistsState();
-	}, [newSellerName])
-
-	const changeExistsState =  () => {
+	const addNewSession = useCallback(() => {
 		setExists(sellers.includes(newSellerName));
-		
-		if(newSellerName && !exists) {
+
+		if (newSellerName && !exists) {
 			socket.emit("newSeller", newSellerName)
 			setIsLoading(true);
-			socket.on("qrNew", (qr)=>{
+			socket.on("qrNew", (qr) => {
 				setValueQR(qr);
 				setQR(true);
 				setIsLoading(false);
-		  })
+			})
 		}
-	}
 
-	/* const agregarAlArray = (name) => {
-		!exists && sellers.push(name);
-		setExists(false);
-	} */
-	
+		return () => socket.off("qrNew");
+	}, [exists, newSellerName, sellers])
+
+	useEffect(() => {
+		addNewSession();
+	}, [addNewSession])
+
+
 	const handleChange = e => { // cuando esta escribiendo
 		setInputValue(e.target.value);
 	}
@@ -64,19 +60,17 @@ function SignIn() {
 	}, []);
 
 	const sellersFetch = async () => {
-		// '/vendedores'
 		const response = await fetch('https://sef-production-a2d4.up.railway.app/vendedores');
 		const sellersJSON = await response.json();
 		const data = sellersJSON.map(seller => seller.name)
 		setSellers(data);
 	}
 
-	// const ref = useRef();
 
 	return (
 		<div className="sign-in">
 			<form className="name-input">
-			<h5>Ingresar nombre de vendedor:</h5>
+				<h5>Ingresar nombre de vendedor:</h5>
 				<input
 					type="text"
 					placeholder="Ingresa tu nombre"
@@ -85,21 +79,20 @@ function SignIn() {
 					required={true} // no funciona
 					minLength={3} // no funciona
 					maxLength={18}
-					// ref={ref}
 				/>
 
-			<button type='submit' className="new-session" onClick={handleClick}>
-				Nueva sesión
-			</button>
+				<button type='submit' className="new-session" onClick={handleClick}>
+					Nueva sesión
+				</button>
 			</form>
 			<div className="results">
-				{	
-				       (nameError && <p className="error">El nombre ingresado no es valido</p>) 
+				{
+					(nameError && <p className="error">El nombre ingresado no es valido</p>)
 					|| (exists && <p className="error">Ya existe una sesion activa con este nombre</p>)
-					|| (isLoading && <Loader model={"qr"} />) 
-					|| (!exists && QR &&  <QRCode value={valueQR}  /> )
+					|| (isLoading && <Loader model={"qr"} />)
+					|| (!exists && QR && <QRCode value={valueQR} />)
 				}
-            
+
 			</div>
 		</div>
 	)
