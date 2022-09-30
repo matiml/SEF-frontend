@@ -27,7 +27,7 @@ function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
     }, [messagesFetch])
 
     // mostrar los mensajes en orden ascendente
-    const reversedMessages = useCallback(() => Array.from(messages.reverse()),[messages]);
+    const reversedMessages = Array.from(messages.reverse());
 
     return (
         <div className="messages">
