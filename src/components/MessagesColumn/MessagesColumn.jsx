@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import ItemMessage from '../ItemMessage/ItemMessage';
 import './MessagesColumn.scss';
 import io from 'socket.io-client';
@@ -19,7 +19,7 @@ function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
 
         // para recibir mensajes en tiempo real
         socket.on("newMessage", () => {
-            messagesFetch()
+            messagesFetch();
         });
 
         // ! limpiando el useEffect
@@ -27,7 +27,7 @@ function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
     }, [messagesFetch])
 
     // mostrar los mensajes en orden ascendente
-    const reversedMessages = Array.from(messages.reverse());
+    const reversedMessages = useCallback(() => Array.from(messages.reverse()),[messages]);
 
     return (
         <div className="messages">
