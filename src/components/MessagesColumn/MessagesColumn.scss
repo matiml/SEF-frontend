@@ -8,6 +8,12 @@
         flex-direction: column;
         height: fit-content;
         padding: 1em 2em;
+
+        &.fetching {
+            min-height: 80%;
+            align-items: center;
+            justify-content: center;
+        }
     
         .msg {
             padding: 0.5em 0.7em;

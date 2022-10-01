@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import ItemMessage from '../ItemMessage/ItemMessage';
 import './MessagesColumn.scss';
 import io from 'socket.io-client';

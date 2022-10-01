@@ -28,7 +28,7 @@ function ClientsColumn({ selectedSeller = {}, setSelectedClient, selectedClient 
         <div className="client">
             <h5>Clientes</h5>
             {
-                clientData.map((client, index) => {
+                clientData.map(client => {
                     return (
                         selectedSeller.number === client.vendedorNumber
                             ? (<ItemClient
