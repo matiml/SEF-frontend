@@ -3,12 +3,11 @@ import Loader from '../Loader/Loader';
 import './SignIn.scss';
 import QRCode from "react-qr-code";
 import io from 'socket.io-client';
+import axios from 'axios';
 
 const socket = io('https://sef-production-a2d4.up.railway.app')
 
-
 function SignIn() {
-
 	const [sellers, setSellers] = useState([]);
 	const [inputValue, setInputValue] = useState('');
 	const [newSellerName, setNewSellerName] = useState('');
@@ -38,7 +37,6 @@ function SignIn() {
 		addNewSession();
 	}, [addNewSession])
 
-
 	const handleChange = e => { // cuando esta escribiendo
 		setInputValue(e.target.value);
 	}
@@ -60,9 +58,7 @@ function SignIn() {
 	}, []);
 
 	const sellersFetch = async () => {
-		const response = await fetch('https://sef-production-a2d4.up.railway.app/vendedores');
-		const sellersJSON = await response.json();
-		const data = sellersJSON.map(seller => seller.name)
+		const { data } = await axios.get('https://sef-production-a2d4.up.railway.app/vendedores');
 		setSellers(data);
 	}
 
@@ -92,7 +88,6 @@ function SignIn() {
 					|| (isLoading && <Loader model={"qr"} />)
 					|| (!exists && QR && <QRCode value={valueQR} />)
 				}
-
 			</div>
 		</div>
 	)

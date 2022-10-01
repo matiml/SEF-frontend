@@ -1,30 +1,36 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import axios from 'axios';
+import React, { useEffect } from 'react';
+import { useQuery, useQueryClient } from 'react-query';
+import io from 'socket.io-client';
 import ItemList from '../ItemList/ItemList';
-import Loader from '../Loader/Loader';
 import './SellerColumn.scss';
 
-function SellerColumn({ setSelectedSeller, selectedSeller = {} }) {
-    const [sellerData, setSellerData] = useState([]);
-    const [fetchingData, setFetchingData] = useState(true);
+const socket = io('https://sef-production-a2d4.up.railway.app');
 
-    const sellersFetch = useCallback(async () => {
-        const response = await fetch('https://sef-production-a2d4.up.railway.app/vendedores');
-        const json = await response.json();
-        setSellerData(json);
-        setFetchingData(false);
-    }, [])
+function SellerColumn({ setSelectedSeller, selectedSeller = {} }) {
+    const queryClient = useQueryClient();
+
+    const getClients = async () => {
+        const { data } = await axios.get(`https://sef-production-a2d4.up.railway.app/vendedores`);
+        return data;
+    }
+
+    const { data: sellerData } = useQuery(["sellers"], () => getClients())
 
     useEffect(() => {
-        sellersFetch()
-    }, [sellersFetch])
+        socket.on("newSeller", () => {
+            queryClient.refetchQueries(["sellers"], { active: true });
+        });
+
+        return () => socket.off("newSeller");
+    }, [queryClient])
 
 
     return (
         <div className="seller">
             <h5>Vendedor</h5>
             {
-                !fetchingData
-                    ? (sellerData.map(seller => {
+                sellerData && sellerData.map(seller => {
                         return (
                             <ItemList
                                 active={selectedSeller.number === seller.number ? true : false}
@@ -35,8 +41,7 @@ function SellerColumn({ setSelectedSeller, selectedSeller = {} }) {
                                 {seller.name}
                             </ItemList>
                         )
-                    }))
-                    : <Loader model='basic' />
+                    })
             }
         </div>
     )

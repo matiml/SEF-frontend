@@ -1,33 +1,33 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import ItemClient from '../ItemClient/ItemClient';
 import io from 'socket.io-client';
+import { useQuery, useQueryClient } from 'react-query';
+import axios from 'axios';
 
 const socket = io('https://sef-production-a2d4.up.railway.app');
 
 function ClientsColumn({ selectedSeller = {}, setSelectedClient, selectedClient = {} }) {
-    const [clientData, setClientData] = useState([]);
+    const queryClient = useQueryClient();
 
-    const clientsFetch = useCallback(async () => {
-        const response = await fetch(`https://sef-production-a2d4.up.railway.app/vendedores/${selectedSeller.number}/clientes`);
-        const json = await response.json();
-        setClientData(json);
-    }, [selectedSeller.number])
+    const getClients = async (sellerNum) => {
+        const { data } = await axios.get(`https://sef-production-a2d4.up.railway.app/vendedores/${sellerNum}/clientes`);
+        return data;
+    }
+
+    const { data: clientData } = useQuery(["clients", selectedSeller.number], () => getClients(selectedSeller.number))
 
     useEffect(() => {
-        clientsFetch()
-
-        // para que se agregue un nuevo chat en tiempo real
         socket.on("newMessage", () => {
-            clientsFetch()
+            queryClient.refetchQueries(["clients"], { active: true });
         });
 
         return () => socket.off("newMessage");
-    }, [clientsFetch])
+    }, [queryClient])
 
     return (
         <div className="client">
             <h5>Clientes</h5>
-            {
+            {clientData &&
                 clientData.map(client => {
                     return (
                         selectedSeller.number === client.vendedorNumber

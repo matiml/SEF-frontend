@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
+import { useQuery, useQueryClient } from 'react-query';
+import axios from 'axios';
 import ItemMessage from '../ItemMessage/ItemMessage';
 import './MessagesColumn.scss';
 import io from 'socket.io-client';
@@ -6,35 +8,32 @@ import io from 'socket.io-client';
 const socket = io('https://sef-production-a2d4.up.railway.app');
 
 function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
-    const [messages, setMessages] = useState([]);
+    const queryClient = useQueryClient();
 
-    const messagesFetch = useCallback(async () => {
-        const response = await fetch(`https://sef-production-a2d4.up.railway.app/vendedores/${selectedClient.id}/mensajes`);
-        const json = await response.json();
-        setMessages(json);
-    }, [selectedClient.id])
+    const getMessages = async (clientID) => {
+        const { data } = await axios.get(`https://sef-production-a2d4.up.railway.app/vendedores/${clientID}/mensajes`);
+        console.log(data)
+        const reversedMessages = Array.from(data.reverse());
+        return reversedMessages;
+    }
+
+    const {data: messages} = useQuery(["messages", selectedClient.id], () => getMessages(selectedClient.id))
 
     useEffect(() => {
-        messagesFetch()
-
-        // para recibir mensajes en tiempo real
         socket.on("newMessage", () => {
-            messagesFetch();
+            queryClient.refetchQueries(["messages"], { active: true });
         });
 
         // ! limpiando el useEffect
         return () => socket.off("newMessage");
-    }, [messagesFetch])
-
-    // mostrar los mensajes en orden ascendente
-    const reversedMessages = Array.from(messages.reverse());
+    }, [queryClient])
 
     return (
         <div className="messages">
             <h5>Mensajes</h5>
             <div className="chats">
-                {
-                    reversedMessages.map(message => {
+                {messages &&
+                    messages.map(message => {
                         return (
                             message.clienteId === selectedClient.id && selectedClient.vendedorNumber === selectedSeller.number
                                 ? (<ItemMessage
