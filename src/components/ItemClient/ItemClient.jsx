@@ -7,7 +7,7 @@ function ItemClient({ children, client = {}, setSelectedClient, active }) {
     }
 
     return (
-        <div className={`item-list ${active ? 'isActive' : ''}`} onClick={handleClick} >
+        <div className={`item-list ${active && 'isActive'}`} onClick={handleClick} >
             <p className="item-name">{children}</p>
         </div>
     )

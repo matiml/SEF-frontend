@@ -12,12 +12,13 @@ function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
 
     const getMessages = async (clientID) => {
         const { data } = await axios.get(`https://sef-production-a2d4.up.railway.app/vendedores/${clientID}/mensajes`);
-        console.log(data)
         const reversedMessages = Array.from(data.reverse());
         return reversedMessages;
     }
 
+
     const {data: messages} = useQuery(["messages", selectedClient.id], () => getMessages(selectedClient.id))
+
 
     useEffect(() => {
         socket.on("newMessage", () => {
