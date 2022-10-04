@@ -2,13 +2,13 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './Navbar.scss';
 
-function Navbar() {
+function Navbar({ blockNav }) {
     return (
         <div className="navbar">
             <NavLink to="/">
                 Iniciar nueva sesión
             </NavLink>
-            <NavLink to="/sessions">
+            <NavLink className={`${blockNav && 'bloqued'}`} to={`${blockNav ? '/' : '/sessions'}`}>
                 Sesiones activas
             </NavLink>
         </div>

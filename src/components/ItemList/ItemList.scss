@@ -1,28 +1,45 @@
+@import '../../index.scss';
+
 .item-list {
-    max-height: 2em;
+    max-height: 3em;
     width: 100%;
-    border-bottom: 1px solid #333;   
+    border-bottom: 1px solid #1c3a98;   
     display: flex;
     align-items: center;
     user-select: none;
     cursor: pointer;
 
     .item-name {
-        transition: all .5s ease;
+        font-family: 'Lato', sans-serif;
+        font-weight: 400;
+        transition: all .1s ease;
         margin-left: 1.2em;
         text-transform: capitalize;
+        letter-spacing: 1px;
     }
 
-    &:hover {
-        background-color: #f0f8ff;
+    &:hover:not(.isActive) {
+        .item-name {
+            color: #1c3a98;
+            font-weight: 600;
+        }
     }
 
     &.isActive {
-        background-color: #fff;
+        background-color: #097cff;
 
         .item-name {
-            font-weight: 600;
+            color: #f6f7f8;
         }
-    
     }
+
+    &.new {
+        background-color: rgb(142, 223, 61);
+
+        .item-name {
+            font-weight: bold;
+            font-style: italic;
+        }
+    }
+
 }

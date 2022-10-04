@@ -5,7 +5,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: center; // lo agregue por si hay loader
-    border-left: 1px solid #ddd;
+    //border-left: 1px solid #6480e2;
 
     & div:not(.loader) { // loader lo borre de ahi
         height: 100%; // !!!!
@@ -24,27 +24,27 @@
             min-height: 2em;
             padding: 7px 0;
             text-align: center;
-            color: #fff;
-            background-color: #888;
+            color: #1c3a98;
+            background-color: #f6f7f8;
             font-weight: 600;
             letter-spacing: 0.03em;
             font-size: 0.9em;
             user-select: none;
-            border-top: 2px solid #999;
-            border-bottom: 2px solid #999;
+            border-top: 1px solid #1c3a98;
             position: sticky;
             top: 0;
+            border-bottom: 1px solid #1c3a98;
         }
     }
 
     .client {
-        background-color: #eaf7ef;
+        background-color: #f6f7f8;
         flex: 0.35;
-        border-right: 2px solid #999;
+        border-right: 2px solid #1c3a98;
     }
 
     .messages {
-        background-color: #e0f5eb;
+        background-color: #f6f7f8;
         flex: 0.604;
         height: 100%;
 
@@ -65,13 +65,16 @@
                 max-width: 75%;
                 margin-bottom: 0.5em;
                 align-self: flex-start;
-                border: 1px solid rgba(212, 212, 212, 0.61);
+                border: 1px solid #6480e2;
                 border-radius: 10px;
-                background-color: #91dac07c;
+                background-color: #f0f9ff;
+                color: #3E4B5B;
 
                 &.from-me {
                     align-self: flex-end;
-                    background-color: #76ce767c;
+                    background-color: #fff9f0;
+                    border: 1px solid #ffb74a;
+                    color: #594939;
                 }
                 
                 div {

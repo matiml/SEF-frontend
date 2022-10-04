@@ -24,6 +24,10 @@
             border: 1px solid rgba(212, 212, 212, 0.61);
             border-radius: 10px;
             background-color: #91dac07c;
+
+            p {
+                font-family: 'Lato', sans-serif;
+            }
     
             &.from-me {
                 align-self: flex-end;

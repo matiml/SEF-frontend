@@ -7,7 +7,7 @@ import './MessagesContainer.scss';
 function MessagesContainer() {
     const [selectedSeller, setSelectedSeller] = useState({});
     const [selectedClient, setSelectedClient] = useState({});
-
+    
     return (
         <div className="msg-container">
             <SellerColumn

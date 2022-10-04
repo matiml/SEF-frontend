@@ -16,9 +16,7 @@ function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
         return reversedMessages;
     }
 
-
     const {data: messages} = useQuery(["messages", selectedClient.id], () => getMessages(selectedClient.id))
-
 
     useEffect(() => {
         socket.on("newMessage", () => {
