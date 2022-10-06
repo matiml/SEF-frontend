@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Loader from '../Loader/Loader';
+import Success from '../Success/Success';
 import './SignIn.scss';
 import QRCode from "react-qr-code";
 import io from 'socket.io-client';
@@ -61,13 +62,14 @@ function SignIn({ setBlockNav = {} }) {
 
 	const handleClick = e => { // cuando hace click en nueva sesion		
 		e.preventDefault();
-		setBlockNav(true);
 		setNameError(false);
 
 		if (inputValue.length > 2) {
 			setNewSellerName(inputValue);
+			setBlockNav(true);
 		} else {
 			setNameError(true);
+			// return;
 		}
 	}
 
@@ -86,14 +88,20 @@ function SignIn({ setBlockNav = {} }) {
 		<div className="sign-in">
 			<form className="name-input">
 				<input
-					type="text"
+					list="active-sessions"
 					placeholder="Ingresa tu nombre"
 					name="sesionName"
 					onChange={handleChange}
 					required={true} // no funciona
-					minLength={3} // no funciona
-					maxLength={18}
+					//minLength={3} no funciona como deberia
+					//maxLength={18}
 				/>
+				<datalist id="active-sessions">
+					<option value=" " readonly>---  Sesiones guardadas  ---</option>
+					{
+						sellers && sellers.map(seller => <option value={seller.name} />)
+					}
+				</datalist>
 
 				<button type='submit' className="new-session" onClick={handleClick}>
 					Nueva sesión
@@ -105,7 +113,7 @@ function SignIn({ setBlockNav = {} }) {
 					|| (exists && <p className="error">Ya existe una sesion activa con este nombre</p>)
 					|| (isLoading && <Loader model={"qr"} />)
 					|| (!exists && QR && <div className="qrImg"><QRCode value={valueQR} /></div>)
-					|| (isReady && <h2>Listo</h2>)
+					|| (isReady && <Success />)
 				}
 			</div>
 		</div>
