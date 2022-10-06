@@ -19,6 +19,8 @@ function SignIn({ setBlockNav = {} }) {
 	const [valueQR, setValueQR] = useState('');
 	const [isReady, setIsReady] = useState(false);
 
+	const blockNavigation = useCallback(() => setBlockNav(false), [setBlockNav]);
+
 	const addNewSession = useCallback(() => {
 		setExists(sellers.includes(newSellerName));
 
@@ -36,7 +38,7 @@ function SignIn({ setBlockNav = {} }) {
 				console.log('ok')
 				setIsReady(true); 
 				setQR(false);
-				setBlockNav(false);
+				blockNavigation()
 			})
 
 			//socket.on("qrError", (e) => console.log(e))
@@ -50,7 +52,7 @@ function SignIn({ setBlockNav = {} }) {
 			//socket.off("sellerError");
 		}
 
-	}, [exists, newSellerName, sellers])
+	}, [exists, newSellerName, sellers, blockNavigation])
 
 	useEffect(() => {
 		addNewSession();
@@ -92,14 +94,12 @@ function SignIn({ setBlockNav = {} }) {
 					placeholder="Ingresa tu nombre"
 					name="sesionName"
 					onChange={handleChange}
-					required={true} // no funciona
-					//minLength={3} no funciona como deberia
-					//maxLength={18}
+					required={true}
 				/>
 				<datalist id="active-sessions">
-					<option value=" " readonly>---  Sesiones guardadas  ---</option>
+					<option value=" " readOnly>---  Sesiones guardadas  ---</option>
 					{
-						sellers && sellers.map(seller => <option value={seller.name} />)
+						sellers && sellers.map(seller => <option key={seller.number} value={seller.name} />)
 					}
 				</datalist>
 
