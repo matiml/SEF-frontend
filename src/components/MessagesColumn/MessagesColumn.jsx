@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import axios from 'axios';
 import ItemMessage from '../ItemMessage/ItemMessage';
@@ -10,7 +10,6 @@ const socket = io('https://sef-production-a2d4.up.railway.app');
 
 function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
     const queryClient = useQueryClient();
-    const [base64, setBase64] = useState('');
 
     const getMessages = async (clientID) => {
         //const { data } = await axios.get(`http://18.228.7.166:3002/vendedores/${clientID}/mensajes`)
@@ -26,10 +25,6 @@ function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
             queryClient.refetchQueries(["messages"], { active: true });
         });
 
-        socket.on("media", mediaMsg => {
-            setBase64(mediaMsg.data);
-        })
-
         // ! limpiando el useEffect
         return () => socket.off("newMessage");
     }, [queryClient])
@@ -43,13 +38,14 @@ function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
                         return (
                             message.clienteId === selectedClient.id && selectedClient.vendedorNumber === selectedSeller.number
                                 ? (<ItemMessage
-                                    base64={base64}
                                     key={message.id}
                                     sellerName={selectedSeller.name}
                                     clientName={selectedClient.name}
                                     message={message.body}
                                     fromMe={message.fromMe}
                                     date={message.date}
+                                    mediaData={message.media}
+                                    mediaType={message.type}
                                 />)
                                 : null
                         )
