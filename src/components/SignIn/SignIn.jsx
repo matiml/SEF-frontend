@@ -6,6 +6,7 @@ import QRCode from "react-qr-code";
 import io from 'socket.io-client';
 import axios from 'axios';
 
+//const socket = io("http://18.228.7.166:3002")
 const socket = io('https://sef-production-a2d4.up.railway.app')
 
 function SignIn({ setBlockNav = {} }) {
@@ -32,7 +33,7 @@ function SignIn({ setBlockNav = {} }) {
 				setValueQR(qr);
 				setQR(true);
 				setIsLoading(false);
-			})
+			});
 
 			socket.on("okSeller", () => { 
 				console.log('ok')
@@ -40,7 +41,8 @@ function SignIn({ setBlockNav = {} }) {
 				setQR(false);
 				blockNavigation()
 			})
-
+			
+			// ?? SOCKET AUTHENTICATED
 			//socket.on("qrError", (e) => console.log(e))
 			//socket.on("sellerError", (e) => console.log(e))
 		}
@@ -48,6 +50,7 @@ function SignIn({ setBlockNav = {} }) {
 		return () => {
 			socket.off("qrNew");
 			socket.off("okSeller");
+			
 			//socket.off("qrError");
 			//socket.off("sellerError");
 		}
@@ -81,6 +84,7 @@ function SignIn({ setBlockNav = {} }) {
 	}, []);
 
 	const sellersFetch = async () => {
+		//const { data } = await axios.get(`http://18.228.7.166:3002/vendedores`);
 		const { data } = await axios.get('https://sef-production-a2d4.up.railway.app/vendedores');
 		setSellers(data);
 	}

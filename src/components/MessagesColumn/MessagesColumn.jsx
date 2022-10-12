@@ -1,16 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import axios from 'axios';
 import ItemMessage from '../ItemMessage/ItemMessage';
 import './MessagesColumn.scss';
 import io from 'socket.io-client';
 
+//const socket = io("http://18.228.7.166:3002")
 const socket = io('https://sef-production-a2d4.up.railway.app');
 
 function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
     const queryClient = useQueryClient();
+    const [base64, setBase64] = useState('');
 
     const getMessages = async (clientID) => {
+        //const { data } = await axios.get(`http://18.228.7.166:3002/vendedores/${clientID}/mensajes`)
         const { data } = await axios.get(`https://sef-production-a2d4.up.railway.app/vendedores/${clientID}/mensajes`);
         const reversedMessages = Array.from(data.reverse());
         return reversedMessages;
@@ -22,6 +25,10 @@ function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
         socket.on("newMessage", () => {
             queryClient.refetchQueries(["messages"], { active: true });
         });
+
+        socket.on("media", mediaMsg => {
+            setBase64(mediaMsg.data);
+        })
 
         // ! limpiando el useEffect
         return () => socket.off("newMessage");
@@ -36,6 +43,7 @@ function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
                         return (
                             message.clienteId === selectedClient.id && selectedClient.vendedorNumber === selectedSeller.number
                                 ? (<ItemMessage
+                                    base64={base64}
                                     key={message.id}
                                     sellerName={selectedSeller.name}
                                     clientName={selectedClient.name}

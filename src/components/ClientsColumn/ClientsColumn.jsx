@@ -4,6 +4,7 @@ import io from 'socket.io-client';
 import { useQuery, useQueryClient } from 'react-query';
 import axios from 'axios';
 
+// const socket = io("http://18.228.7.166:3002")
 const socket = io('https://sef-production-a2d4.up.railway.app');
 
 function ClientsColumn({ selectedSeller = {}, setSelectedClient, selectedClient = {} }) {
@@ -11,6 +12,7 @@ function ClientsColumn({ selectedSeller = {}, setSelectedClient, selectedClient 
     const [newMessageNum, setNewMessageNum] = useState({});
 
     const getClients = async (sellerNum) => {
+        //const { data } = await axios.get(`http://18.228.7.166:3002/vendedores/${sellerNum}/clientes`)
         const { data } = await axios.get(`https://sef-production-a2d4.up.railway.app/vendedores/${sellerNum}/clientes`);
         return data;
     }
