@@ -5,17 +5,15 @@ import io from 'socket.io-client';
 import ItemList from '../ItemList/ItemList';
 import './SellerColumn.scss';
 
-const IP = process.env.IP || 'https://sef-production-a2d4.up.railway.app';
+const path = process.env.REACT_APP_API_URL;
 
-//const socket = io(IP)
-const socket = io('https://sef-production-a2d4.up.railway.app');
+const socket = io(path);
 
 function SellerColumn({ setSelectedSeller, selectedSeller = {} }) {
     const queryClient = useQueryClient();
 
     const getClients = async () => {
-        // const { data } = await axios.get("http://18.228.7.166:3002/vendedores")
-        const { data } = await axios.get(`https://sef-production-a2d4.up.railway.app/vendedores`);
+        const { data } = await axios.get(path + '/vendedores');
         return data;
     }
 

@@ -5,8 +5,9 @@ import Swal from 'sweetalert2';
 import io from 'socket.io-client';
 import './index.scss';
 
-//const socket = io("http://18.228.7.166:3002");
-const socket = io('https://sef-production-a2d4.up.railway.app'); 
+const path = process.env.REACT_APP_API_URL;
+
+const socket = io(path); 
 
 function App() {
   const [blockNav, setBlockNav] = useState(false);

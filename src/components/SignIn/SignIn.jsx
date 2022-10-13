@@ -6,8 +6,9 @@ import QRCode from "react-qr-code";
 import io from 'socket.io-client';
 import axios from 'axios';
 
-//const socket = io("http://18.228.7.166:3002")
-const socket = io('https://sef-production-a2d4.up.railway.app')
+const path = process.env.REACT_APP_API_URL;
+
+const socket = io(path)
 
 function SignIn({ setBlockNav = {} }) {
 	const [sellers, setSellers] = useState([]);
@@ -84,8 +85,7 @@ function SignIn({ setBlockNav = {} }) {
 	}, []);
 
 	const sellersFetch = async () => {
-		//const { data } = await axios.get(`http://18.228.7.166:3002/vendedores`);
-		const { data } = await axios.get('https://sef-production-a2d4.up.railway.app/vendedores');
+		const { data } = await axios.get(path + '/vendedores');
 		setSellers(data);
 	}
 
