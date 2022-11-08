@@ -37,6 +37,7 @@ function SellerColumn({ setSelectedSeller, selectedSeller = {} }) {
                             <ItemList
                                 active={selectedSeller.number === seller.number ? true : false}
                                 seller={seller}
+                                selected={selectedSeller}
                                 setSelectedSeller={setSelectedSeller}
                                 key={seller.id}
                             >

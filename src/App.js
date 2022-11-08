@@ -34,7 +34,6 @@ function App() {
     <div className="App">
       <Navbar blockNav={blockNav} />
       <SignIn setBlockNav={setBlockNav} />
-     
     </div>
   );
 }

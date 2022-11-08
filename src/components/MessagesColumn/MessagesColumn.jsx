@@ -13,11 +13,11 @@ function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
 
     const getMessages = async (clientID) => {
         const { data } = await axios.get(path + `/vendedores/${clientID}/mensajes`);
-        const reversedMessages = Array.from(data.reverse());
-        return reversedMessages;
+        //const reversedMessages = Array.from(data.reverse());
+        return data;
     }
 
-    const {data: messages} = useQuery(["messages", selectedClient.id], () => getMessages(selectedClient.id))
+    const { data: messages } = useQuery(["messages", selectedClient.id], () => getMessages(selectedClient.id))
 
     useEffect(() => {
         socket.on("newMessage", () => {
@@ -26,6 +26,12 @@ function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
 
         return () => socket.off("newMessage");
     }, [queryClient])
+
+    useEffect(() => {
+        let body = document.querySelector(".messages");
+        let height = body.scrollHeight
+        body.scrollTo(0, height)
+    }, [messages])
 
     return (
         <div className="messages">
