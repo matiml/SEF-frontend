@@ -4,6 +4,7 @@ import Navbar from './components/Navbar/Navbar';
 import Swal from 'sweetalert2';
 import io from 'socket.io-client';
 import './index.scss';
+import Settings from './components/Settings/Settings';
 
 const path = process.env.REACT_APP_API_URL;
 
@@ -34,6 +35,7 @@ function App() {
     <div className="App">
       <Navbar blockNav={blockNav} />
       <SignIn setBlockNav={setBlockNav} />
+      <Settings />
     </div>
   );
 }

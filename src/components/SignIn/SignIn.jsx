@@ -5,7 +5,6 @@ import './SignIn.scss';
 import QRCode from "react-qr-code";
 import io from 'socket.io-client';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 
 const path = process.env.REACT_APP_API_URL;
 
@@ -122,8 +121,6 @@ function SignIn({ setBlockNav = {} }) {
 					|| (isReady && <Success />)
 				}
 			</div>
-		    <Link to='/register'>Registro</Link>
-			<Link to='/control'>Seguimiento de clientes</Link>
 		</div>
 	)
 }

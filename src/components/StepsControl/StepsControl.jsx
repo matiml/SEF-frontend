@@ -2,13 +2,13 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useQuery, useQueryClient } from 'react-query';
 import io from 'socket.io-client';
-import { Link } from 'react-router-dom';
+import Navbar from '../Navbar/Navbar.jsx';
 
 const path = process.env.REACT_APP_API_URL;
 
 const socket = io(path);
 
-function Steps() {
+function StepsControl() {
     const queryClient = useQueryClient();
 
     const getAllClients = async () => {
@@ -56,7 +56,7 @@ function Steps() {
     if (isLoading) return <h1>Cargando...</h1>
     if (isSuccess) return (
         <>
-        <Link to='/'>Inicio</Link>
+        <Navbar />
         <table style={{ width: '100%' }} cellSpacing="0" cellPadding="0" border="4">
             <caption>PASOS EN LOS QUE SE ENCUENTRA CADA CLIENTE</caption>
             <thead style={{ width: '100%' }}>
@@ -97,4 +97,4 @@ function Steps() {
     )
 }
 
-export default Steps;
+export default StepsControl;

@@ -1,0 +1,50 @@
+.settings {
+    .config {
+      position: absolute;
+      right: 25px;
+      bottom: 25px;
+      z-index: 1000;
+      font-size: 60px;
+      color: #1c3a98;
+      transition: all .7s ease-in-out;
+
+      &:hover {
+        transform: rotate(180deg);
+        cursor: pointer;
+      }
+    }
+
+    .hidden {
+        position: absolute;
+        font-size: 45px;
+        bottom: 25px;
+        right: 30px;
+        z-index: 999;
+        transition: all .7s ease;
+        opacity: 0;
+        color: #6480e2;
+        border-radius: 50%;
+
+        &.open.first {
+            opacity: 1;
+            bottom: 105px;
+        }
+
+        &.open.second {
+            opacity: 1;
+            bottom: 180px;
+        }
+
+        &.open.third {
+            opacity: 1;
+            bottom: 255px;
+        }
+
+        &:hover {
+            transition: all .3s ease;
+            border: 1px solid #6480e2;
+            padding: 4px;
+            box-shadow: 2px 2px 7px #6480e2, -2px -2px 7px #6480e2;
+        }
+    }
+  }

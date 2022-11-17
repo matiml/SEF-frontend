@@ -1,9 +1,10 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
+import Links from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -15,9 +16,9 @@ function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="http://www.esdev-arg.com/">
+      <Links color="inherit" href="http://www.esdev-arg.com/">
         ESDev
-      </Link>{' '}
+      </Links>{' '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -54,7 +55,7 @@ function SignUp() {
           <Typography component="h1" variant="h5">
             Registro de empresa
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 5 }}>
             <Grid container spacing={1}>
               <Grid item xs={12}>
                 <TextField
@@ -99,20 +100,20 @@ function SignUp() {
                 />
               </Grid>
             </Grid>
+            <Link to='#'>
             <Button
               //type="submit"
               fullWidth
               variant="contained"
-              style={{backgroundColor: '#1c3a98'}}
+              style={{backgroundColor: '#1c3a98', color: '#FFF', fontWeight: '600', textDecoration: 'none'}}
               sx={{ mt: 3, mb: 2 }}
             >
-            <Link href='/' style={{color: '#FFF', fontWeight: '600', textDecoration: 'none'}}>
               Registrarse
-            </Link>
             </Button>
+            </Link>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link to="/">
                   Ya tienes una cuenta? Inicia sesión
                 </Link>
               </Grid>
