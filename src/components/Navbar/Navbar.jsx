@@ -5,7 +5,7 @@ import './Navbar.scss';
 function Navbar({ blockNav }) {
     return (
         <div className="navbar">
-            <NavLink to="/new-session">
+            <NavLink to="/">
                 Iniciar nueva sesión
             </NavLink>
             <NavLink className={`${blockNav && 'bloqued'}`} to={`${blockNav ? '/' : '/sessions'}`}>

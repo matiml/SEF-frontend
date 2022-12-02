@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -30,13 +30,22 @@ function Copyright(props) {
 const theme = createTheme();
 
 function Login() {
+
+    const navigate = useNavigate();
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
+
+        const loggedUser = {
             email: data.get('email'),
-            password: data.get('password'),
-        });
+            password: data.get('password')
+        }
+
+        if (!loggedUser.email || !loggedUser.password) return
+
+        localStorage.setItem('loggedUser', JSON.stringify(loggedUser))
+        navigate('/sessions')
     };
 
     return (
@@ -51,7 +60,7 @@ function Login() {
                         alignItems: 'center',
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: '#1c3a98' }}>
+                    <Avatar sx={{ m: 1, bgcolor: '#00b1ec' }}>
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
@@ -82,26 +91,24 @@ function Login() {
                             control={<Checkbox value="remember" color="primary" />}
                             label="Recordarme"
                         />
-                        <Link to="/new-session">
                         <Button
-                            //type="submit"
+                            type="submit"
                             fullWidth
                             variant="contained"
-                            style={{backgroundColor: '#1c3a98', color: '#FFF', fontWeight: '600', textDecoration: 'none'}}
+                            style={{backgroundColor: '#00b1ec', color: '#FFF', fontWeight: '600', textDecoration: 'none'}}
                             sx={{ mt: 3, mb: 2 }}
                         >
                             Ingresar
                         </Button>
-                        </Link>
                         <Grid container>
                             <Grid item xs>
-                                <Link to="#">
+                                <Link to="#" style={{textDecoration: 'none'}}>
                                     Olvidaste tu contraseña?
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link to="/signup">
-                                    {"Registrarse"}
+                                <Link to="/signup" style={{textDecoration: 'none'}}>
+                                    Registrarse
                                 </Link>
                             </Grid>
                         </Grid>

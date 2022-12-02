@@ -1,0 +1,47 @@
+.bot-settings {
+    width: 100%;
+    height: 95%;
+    padding: 5px;
+
+    form {
+        position: relative;
+        padding: 0 10px;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+
+        textarea {
+            padding: 5px;
+            width: 45%;
+            height: 10vh;
+            resize: none;
+            margin: 5px;
+            border-radius: 5px;
+
+            &:focus {
+                border: 1px solid #45bce3;
+                outline: none;
+            }
+        }
+
+        button {
+            width: 30%;
+            padding: 10px 20px;
+            border-radius: 15px;
+            border: 1px solid #aaa;
+            background-color: transparent;
+            font-size: 14px;
+            transition: all .5s ease;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #45bce3;
+                color: #fff;
+            }
+        }
+        
+    }
+}

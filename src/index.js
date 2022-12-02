@@ -6,9 +6,11 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 import './index.scss';
 import Home from './components/Home/Home';
 import App from './App';
-import StepsControl from './components/StepsControl/StepsControl';
+import StepsControl from './components/Settings/StepsControl/StepsControl';
 import SignUp from './components/SignUp/SignUp';
 import Login from './components/Login/Login';
+import BotConfig from './components/Settings/BotConfig/BotConfig';
+import AccountPreferences from './components/Settings/Preferences/Preferences';
 
 const queryClient = new QueryClient();
 
@@ -18,12 +20,14 @@ root.render(
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<App />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/new-session" element={<App />} />
           <Route path="/sessions" element={<Home />} />
           <Route path="/control" element={<StepsControl />} />
-          <Route path="/register" element={<SignUp />} />
+          <Route path="/settings" element={<AccountPreferences />}>
+            <Route path="/settings/bot" element={<BotConfig />} />
+          </Route>
         </Routes>
         <ReactQueryDevtools />
       </BrowserRouter>

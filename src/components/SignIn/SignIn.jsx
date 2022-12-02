@@ -99,7 +99,6 @@ function SignIn({ setBlockNav = {} }) {
 					name="sesionName"
 					onChange={handleChange}
 					required={true}
-					autocomplete={false}
 				/>
 				<datalist id="active-sessions">
 					<option value=" " readOnly>---  Sesiones guardadas  ---</option>

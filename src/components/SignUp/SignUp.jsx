@@ -49,7 +49,7 @@ function SignUp() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: '#1c3a98' }}>
+          <Avatar sx={{ m: 1, bgcolor: '#00b1ec' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -99,21 +99,30 @@ function SignUp() {
                   autoComplete="new-password"
                 />
               </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="key"
+                  label="Llave de autorizacion"
+                  type="password"
+                  id="key"
+                  autoComplete="key"
+                />
+              </Grid>
             </Grid>
-            <Link to='#'>
             <Button
-              //type="submit"
+              type="submit"
               fullWidth
               variant="contained"
-              style={{backgroundColor: '#1c3a98', color: '#FFF', fontWeight: '600', textDecoration: 'none'}}
+              style={{backgroundColor: '#00b1ec', color: '#FFF', fontWeight: '600', textDecoration: 'none'}}
               sx={{ mt: 3, mb: 2 }}
             >
               Registrarse
             </Button>
-            </Link>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link to="/">
+                <Link to="/login" style={{textDecoration: 'none'}}>
                   Ya tienes una cuenta? Inicia sesión
                 </Link>
               </Grid>

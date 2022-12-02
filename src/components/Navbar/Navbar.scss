@@ -3,7 +3,7 @@
 .navbar {
     width: 100%;
     min-height: 40px;
-    background-color: #1c3a98;
+    background-color: #00AAE4;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -12,7 +12,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #6480e2;
+        color: #d0d3e0;
         text-decoration: none;
         width: 50%;
         height: 100%;
@@ -20,16 +20,16 @@
         font-weight: 400;
 
         &:first-child {
-            border-right: 1px solid #6480e2;
+            border-right: 1px solid #a3b1ecb2;
         }
 
         &:hover {
-            background-color: #6480e2;
+            background-color: #009dff;
             color: #fff;
         }
 
         &.active {
-            background-color: #1c3a98;
+            background-color: #00AAE4;
             color: #FFF;
             font-weight: 600;
         }

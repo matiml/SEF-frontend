@@ -13,6 +13,8 @@ const socket = io(path);
 function App() {
   const [blockNav, setBlockNav] = useState(false);
 
+  const [isLogged, setIsLogged] = useState();
+
   const emitAlert = useCallback(() => {
     socket.on("sellerDisconnected", (name) => {
         Swal.fire({ 
@@ -31,11 +33,18 @@ function App() {
     emitAlert()
   }, [emitAlert])
 
+  useEffect(() => {
+    const loggedUser = localStorage.getItem('loggedUser')
+    loggedUser ? setIsLogged(true) : setIsLogged(false)
+  }, [])
+
   return (
     <div className="App">
       <Navbar blockNav={blockNav} />
       <SignIn setBlockNav={setBlockNav} />
-      <Settings />
+      {
+        isLogged && <Settings />
+      }
     </div>
   );
 }

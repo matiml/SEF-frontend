@@ -5,7 +5,7 @@
       bottom: 25px;
       z-index: 1000;
       font-size: 60px;
-      color: #1c3a98;
+      color: #00b1ec; // #3cb1d8
       transition: all .7s ease-in-out;
 
       &:hover {
@@ -22,7 +22,7 @@
         z-index: 999;
         transition: all .7s ease;
         opacity: 0;
-        color: #6480e2;
+        color: #2cb4e1c6;
         border-radius: 50%;
 
         &.open.first {
@@ -35,16 +35,11 @@
             bottom: 180px;
         }
 
-        &.open.third {
-            opacity: 1;
-            bottom: 255px;
-        }
-
         &:hover {
             transition: all .3s ease;
-            border: 1px solid #6480e2;
-            padding: 4px;
-            box-shadow: 2px 2px 7px #6480e2, -2px -2px 7px #6480e2;
+            border: 1px solid #2cb4e1;
+            padding: 2px;
+            box-shadow: 2px 2px 7px #2cb4e1c6, -2px -2px 7px #2cb4e1c6;
         }
     }
   }
