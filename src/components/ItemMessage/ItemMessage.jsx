@@ -2,7 +2,7 @@ import React from 'react';
 
 function ItemMessage({ message = '', fromMe, date = '', clientName = '', sellerName = '', mediaData = '', mediaType, mediaExtension }) {
     const dateArg = new Date(date).toLocaleString("es-AR", { timeZone: "America/Buenos_Aires" });
-    
+
     let hour = dateArg.slice(11, 17);
 
     if (hour[0] === ' ') {
@@ -12,7 +12,7 @@ function ItemMessage({ message = '', fromMe, date = '', clientName = '', sellerN
     if (hour[5] === ':') {
         hour = dateArg.slice(11, 16);
     }
-        
+
     // ** mediaExtension = `data:image/${mediaExtension};base64...`
 
     if (mediaType === 'image') {

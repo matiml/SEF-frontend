@@ -1,23 +1,13 @@
-import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
-import io from 'socket.io-client';
+import { socket, getSellers } from '../../services/whatsapp';
 import ItemList from '../ItemList/ItemList';
 import './SellerColumn.scss';
-
-const path = process.env.REACT_APP_API_URL;
-
-const socket = io(path);
 
 function SellerColumn({ setSelectedSeller, selectedSeller = {} }) {
     const queryClient = useQueryClient();
 
-    const getClients = async () => {
-        const { data } = await axios.get(path + '/vendedores');
-        return data;
-    }
-
-    const { data: sellerData } = useQuery(["sellers"], () => getClients())
+    const { data: sellerData } = useQuery(["sellers"], () => getSellers());
 
     useEffect(() => {
         socket.on("newSeller", () => {
@@ -26,7 +16,6 @@ function SellerColumn({ setSelectedSeller, selectedSeller = {} }) {
 
         return () => socket.off("newSeller");
     }, [queryClient])
-
 
     return (
         <div className="seller">

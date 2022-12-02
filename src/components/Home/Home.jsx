@@ -5,7 +5,7 @@ import Navbar from '../Navbar/Navbar.jsx';
 import './Home.scss';
 
 function Home() {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     useEffect(() => {
         const loggedUser = localStorage.getItem('loggedUser')

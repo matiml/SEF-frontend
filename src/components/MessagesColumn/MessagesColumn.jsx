@@ -1,23 +1,12 @@
 import React, { useEffect } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
-import axios from 'axios';
 import ItemMessage from '../ItemMessage/ItemMessage';
-import io from 'socket.io-client';
-
-const path = process.env.REACT_APP_API_URL;
-
-const socket = io(path);
+import { socket, getMessages } from '../../services/whatsapp';
 
 function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
     const queryClient = useQueryClient();
 
-    const getMessages = async (clientID) => {
-        const { data } = await axios.get(path + `/vendedores/${clientID}/mensajes`);
-        //const reversedMessages = Array.from(data.reverse());
-        return data;
-    }
-
-    const { data: messages } = useQuery(["messages", selectedClient.id], () => getMessages(selectedClient.id))
+    const { data: messages } = useQuery(["messages", selectedClient.id], () => getMessages(selectedClient.id));
 
     useEffect(() => {
         socket.on("newMessage", () => {
@@ -27,10 +16,14 @@ function MessagesColumn({ selectedClient = {}, selectedSeller = {} }) {
         return () => socket.off("newMessage");
     }, [queryClient])
 
-    useEffect(() => {
+    const scrollBottom = () => {
         let body = document.querySelector(".messages");
         let height = body.scrollHeight
         body.scrollTo(0, height)
+    }
+    
+    useEffect(() => {
+        scrollBottom(); // ?? ⬆ ⬆ ⬆ ⬆ 👆
     }, [messages])
 
     return (

@@ -1,7 +1,6 @@
 import React from 'react';
 
 function ItemClient({ children, client = {}, setSelectedClient, selectedClient, active, newMessageNum, setNewMessageNum }) {
-
     const handleClick = () => {
         setSelectedClient(client);
         if (selectedClient.number === newMessageNum) setNewMessageNum({});
