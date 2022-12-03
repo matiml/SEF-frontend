@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -32,7 +33,7 @@ const theme = createTheme();
 
 function Login() {
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -46,9 +47,7 @@ function Login() {
         if (!loggedUser.email || !loggedUser.password) return
 
         authorizeUser(loggedUser)
-
-        localStorage.setItem('loggedUser', JSON.stringify(loggedUser))
-        navigate('/sessions')
+        // navigate('/sessions')
     };
 
     return (

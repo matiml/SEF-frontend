@@ -1,23 +1,13 @@
 import React, { useEffect } from 'react';
-import axios from 'axios';
 import { useQuery, useQueryClient } from 'react-query';
-import io from 'socket.io-client';
 import { Link } from 'react-router-dom';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import MessageRoundedIcon from '@mui/icons-material/MessageRounded';
+import { socket, getAllClients } from '../../../services/whatsapp';
 import './StepsControl.scss';
-
-const path = process.env.REACT_APP_API_URL;
-
-const socket = io(path);
 
 function StepsControl() {
     const queryClient = useQueryClient();
-
-    const getAllClients = async () => {
-        const { data } = await axios.get(`${path}/vendedores/allClients`)
-        return data
-    }
 
     const { data: clients, isLoading, isSuccess, isError, error } = useQuery(["allClients"], () => getAllClients()
         .then(clients => clients.map(client => {
@@ -61,6 +51,7 @@ function StepsControl() {
             <h1>Cargando...</h1>
         </div>
     )
+    
     if (isError || error) return (
         <div className="steps-table">
             <Link to='/'><HomeRoundedIcon /></Link>

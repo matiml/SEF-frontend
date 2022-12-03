@@ -7,10 +7,11 @@ const path = process.env.REACT_APP_API_URL;
 
 function BotConfig() {
   const [prevSteps, setPrevSteps] = useState();
+  const [authorized, setAuthorized] = useState();
 
-  const createSteps = async (steps) => {
+  /* const createSteps = async (steps) => {
     await axios.post(path + '/vendedores/steps', steps)
-  }
+  } */
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,7 +30,7 @@ function BotConfig() {
       step_9: data.get('step9'),
     }
 
-    createSteps(steps)
+    // createSteps(steps)
 
     setTimeout(() => {
       emitAlert()
@@ -37,12 +38,16 @@ function BotConfig() {
   }
 
   useEffect(() => {
-    const getSteps = async () => {
+    /* const getSteps = async () => {
       const { data } = await axios.get(path + '/vendedores/steps');
       setPrevSteps(data[0])
     }
 
-    getSteps()
+    getSteps() */
+
+    const loggedUser = localStorage.getItem('loggedUser')
+    const loggedJSON = JSON.parse(loggedUser)
+    if (loggedJSON.role === 'admin') setAuthorized(true)
   }, [])
 
   const emitAlert = () => {
@@ -66,7 +71,11 @@ function BotConfig() {
         <textarea name="step7" placeholder='Paso 8' defaultValue={prevSteps && prevSteps.step_7.message} />
         <textarea name="step8" placeholder='Paso 9' defaultValue={prevSteps && prevSteps.step_8.message} />
         <textarea name="step9" placeholder='Paso 10' defaultValue={prevSteps && prevSteps.step_9.message} />
-        <button>Guardar</button>
+
+        {
+          authorized && <button>Guardar</button>
+        }
+
       </form>
     </div>
   )

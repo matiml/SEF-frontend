@@ -30,6 +30,33 @@ export const createUser = async (newUser) => {
 
 export const authorizeUser = async (user) => {
     await axios.post(`${path}/auth`, user)
-    .then(res => console.log(res))
-    .catch(e => console.log(e))
+    .then(res => {
+        const loggedUser = {
+            email: res.data.user.email,
+            role: res.data.user.role,
+            token: res.data.token
+        }
+
+        if (res.data.token && res.status === 200) {
+            localStorage.setItem('loggedUser', JSON.stringify(loggedUser))
+            console.log('Autorizado')
+            Swal.fire({ 
+                text: `Usuario: ${res.data.user.email} logueado correctamente`, 
+                icon: 'success', 
+            }).then(() => {
+                setTimeout(() => {
+                    window.location.href = '/sessions'
+                }, 1000)
+            })
+        }
+    })
+    .catch(e => {
+        if (e) console.error('No autorizado: ' + e)
+        Swal.fire({
+            title: 'Error',
+            text: 'Por favor, revise todos los campos y vuelva a intentarlo',
+            icon: 'warning',
+            cancelButtonText: 'Reintentar'
+        })
+    })
 }
