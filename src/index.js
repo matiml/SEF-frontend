@@ -10,7 +10,8 @@ import StepsControl from './components/Settings/StepsControl/StepsControl';
 import SignUp from './components/SignUp/SignUp';
 import Login from './components/Login/Login';
 import BotConfig from './components/Settings/BotConfig/BotConfig';
-import AccountPreferences from './components/Settings/Preferences/Preferences';
+import Preferences from './components/Settings/Preferences/Preferences';
+import PasswordRecovery from './components/Settings/PasswordRecovery/PasswordRecovery';
 
 const queryClient = new QueryClient();
 
@@ -22,10 +23,11 @@ root.render(
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/recover" element={<PasswordRecovery />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/sessions" element={<Home />} />
           <Route path="/control" element={<StepsControl />} />
-          <Route path="/settings" element={<AccountPreferences />}>
+          <Route path="/settings" element={<Preferences />}>
             <Route path="/settings/bot" element={<BotConfig />} />
           </Route>
         </Routes>

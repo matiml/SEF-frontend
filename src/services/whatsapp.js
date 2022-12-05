@@ -29,6 +29,6 @@ export const getMessages = async (clientID) => {
 }
 
 export const getAllClients = async () => {
-    const { data } = await axios.get(`${path}/vendedores/allClients`)
+    const { data } = await axios.get(`${path}/vendedores/allClients`, config)
     return data
 }

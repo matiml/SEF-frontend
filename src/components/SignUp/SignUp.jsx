@@ -69,7 +69,7 @@ function SignUp() {
                   required
                   fullWidth
                   id="firstName"
-                  label="Primer nombre"
+                  label="Nombre"
                   autoFocus
                 />
               </Grid>
@@ -117,7 +117,7 @@ function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link to="/login" style={{textDecoration: 'none'}}>
+                <Link to="/login" style={{textDecoration: 'none', color: '#000'}}>
                   Ya tienes una cuenta? Inicia sesión
                 </Link>
               </Grid>

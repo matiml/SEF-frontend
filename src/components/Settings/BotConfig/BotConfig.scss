@@ -21,9 +21,17 @@
             margin: 5px;
             border-radius: 5px;
 
-            &:focus {
+            &:focus:not(.readonly) {
                 border: 1px solid #45bce3;
                 outline: none;
+            }
+
+            &.readonly {
+                cursor: default;
+
+                &:focus {
+                    outline: none;
+                }
             }
         }
 

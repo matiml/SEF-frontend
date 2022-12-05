@@ -14,7 +14,7 @@ export const createUser = async (newUser) => {
                 }).then(() => {
                     setTimeout(() => {
                         window.location.href = '/login'
-                    }, 1000)
+                    }, 900)
                 })
             } else {
                 Swal.fire({
@@ -40,18 +40,14 @@ export const authorizeUser = async (user) => {
         if (res.data.token && res.status === 200) {
             localStorage.setItem('loggedUser', JSON.stringify(loggedUser))
             console.log('Autorizado')
-            Swal.fire({ 
-                text: `Usuario: ${res.data.user.email} logueado correctamente`, 
-                icon: 'success', 
-            }).then(() => {
-                setTimeout(() => {
-                    window.location.href = '/sessions'
-                }, 1000)
-            })
-        }
+            
+            setTimeout(() => {
+                window.location.href = '/sessions'
+            }, 700)
+            }
     })
     .catch(e => {
-        if (e) console.error('No autorizado: ' + e)
+        console.error('No autorizado: ' + e)
         Swal.fire({
             title: 'Error',
             text: 'Por favor, revise todos los campos y vuelva a intentarlo',
@@ -59,4 +55,34 @@ export const authorizeUser = async (user) => {
             cancelButtonText: 'Reintentar'
         })
     })
+}
+
+export const passwordRecovery = async (userBody) => {
+    await axios.post(`${path}/RecoveryPassword`, userBody)
+    .then(res => {
+        console.log(res);
+        Swal.fire({
+            text: 'Contraseña modificada correctamente',
+            icon: 'success',
+            cancelButtonText: 'Reintentar'
+        })
+        
+        setTimeout(() => {
+            window.location.href = '/login'
+        }, 500)
+    })
+    .catch(e => {
+        console.log(e);
+        Swal.fire({
+            title: 'Error',
+            text: 'Por favor, revise todos los campos y vuelva a intentarlo',
+            icon: 'warning',
+            cancelButtonText: 'Reintentar'
+        })
+    })
+}
+
+export const logout = (navigate) => {
+    localStorage.removeItem('loggedUser');
+    navigate('/login');
 }
