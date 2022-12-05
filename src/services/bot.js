@@ -8,7 +8,7 @@ const userJSON = JSON.parse(user);
 
 const config = {
     headers: {
-        Authorization: `Bearer ${userJSON.token}`
+        Authorization: `Bearer ${userJSON?.token}`
     },
 }
 

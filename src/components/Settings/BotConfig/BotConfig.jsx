@@ -6,6 +6,15 @@ function BotConfig() {
   const [prevSteps, setPrevSteps] = useState();
   const [authorized, setAuthorized] = useState();
 
+  useEffect(() => {
+    getSteps().then(res => setPrevSteps(res));
+
+    const loggedUser = localStorage.getItem('loggedUser')
+    const loggedJSON = JSON.parse(loggedUser)
+    if (loggedJSON.role === 'admin') setAuthorized(true);
+  }, [])
+
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
@@ -25,14 +34,6 @@ function BotConfig() {
 
     createSteps(steps);
   }
-
-  useEffect(() => {
-    getSteps().then(res => setPrevSteps(res));
-
-    const loggedUser = localStorage.getItem('loggedUser')
-    const loggedJSON = JSON.parse(loggedUser)
-    if (loggedJSON.role === 'admin') setAuthorized(true);
-  }, [])
 
   return (
     <div className='bot-settings'>
