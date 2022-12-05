@@ -34,11 +34,6 @@ function BotConfig() {
     if (loggedJSON.role === 'admin') setAuthorized(true);
   }, [])
 
-
-  if (!prevSteps) {
-    return <h1>Loading...</h1>
-  }
-
   return (
     <div className='bot-settings'>
       <form onSubmit={handleSubmit}>
