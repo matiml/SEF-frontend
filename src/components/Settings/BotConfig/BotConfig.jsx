@@ -53,6 +53,7 @@ function BotConfig() {
               <textarea name="step7" placeholder='Paso 8' defaultValue={prevSteps[7].body} />
               <textarea name="step8" placeholder='Paso 9' defaultValue={prevSteps[8].body} />
               <textarea name="step9" placeholder='Paso 10' defaultValue={prevSteps[9].body} />
+              <button>Guardar</button>
             </>
             : <>
               <textarea className="readonly" name="step0" placeholder='Paso 1' defaultValue={prevSteps[0].body} readOnly />
@@ -68,11 +69,6 @@ function BotConfig() {
             </>
         : <h4>Cargando</h4>         
         }
-
-        {
-          authorized && <button>Guardar</button>
-        }
-
       </form>
     </div>
   )

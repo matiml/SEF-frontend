@@ -1,0 +1,19 @@
+.main {
+    position: relative;
+    .back {
+        font-size: 1.4vw;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: #000;
+        position: relative;
+        right: 50%;
+        margin-top: 5%;
+    
+        svg {
+            font-size: 2vw;
+            position: relative;
+            margin: 0 10px;
+        }
+    }
+}

@@ -11,7 +11,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { authorizeUser } from '../../services/users';
+import './Login.scss';
 
 function Copyright(props) {
   return (
@@ -44,7 +46,8 @@ function Login() {
 
     return (
         <ThemeProvider theme={theme}>
-            <Container component="main" maxWidth="xs">
+            <Container component="main" maxWidth="xs" className='main'>
+                <Link to='/' className='back'><KeyboardBackspaceIcon /><span>Regresar</span></Link>
                 <CssBaseline />
                 <Box
                     sx={{
