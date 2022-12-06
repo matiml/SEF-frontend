@@ -13,27 +13,30 @@ const config = {
 }
 
 export const getSteps = async () => {
-    const { data } = await axios.get(`${path}/form`);    
-    console.log(data.stepsDB);
-    return data.stepsDB;
+    try {
+        const { data } = await axios.get(`${path}/form`);    
+        return data.stepsDB;
+    } catch (e) {
+        console.error(`Error en fetch getSteps: ${e.message}`)
+        return []
+    }
 }
 
 export const createSteps = async (steps) => {
-    await axios.patch(`${path}/form/update`, steps, config)
-        .then(() => {
-            Swal.fire({
-                text: `Informacion guardada correctamente`,
-                icon: 'success',
-                cancelButtonText: 'Ok'
-            })
+    try {
+        await axios.patch(`${path}/form/update`, steps, config)
+        Swal.fire({
+            text: `Informacion guardada correctamente`,
+            icon: 'success',
+            cancelButtonText: 'Ok'
         })
-        .catch(e => {
-            console.log(e)
-            Swal.fire({
-                text: `No se pudo guardar la informacion`,
-                icon: 'warning',
-                cancelButtonText: 'Cerrar'
-            })
+    } catch(e) {
+        console.error(`Error creando steps: ${e.message}`);
+        Swal.fire({
+            text: `No se pudo guardar la informacion`,
+            icon: 'warning',
+            cancelButtonText: 'Cerrar'
         })
+    }
 }
 

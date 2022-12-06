@@ -86,7 +86,7 @@ function SignIn({ setBlockNav = {} }) {
 				<datalist id="active-sessions">
 					<option value=" " readOnly>---  Sesiones guardadas  ---</option>
 					{
-						sellers && sellers.map(seller => <option key={seller.number} value={seller.name} />)
+						sellers && sellers.map(seller => <option value={seller.name} />)
 					}
 				</datalist>
 

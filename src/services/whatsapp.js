@@ -13,22 +13,42 @@ const config = {
 export const socket = io(path);
 
 export const getSellers = async (setData = () => {}) => {
-    const { data } = await axios.get(path + '/vendedores', config);
-    setData(data);
-    return data;
+    try {
+        const { data } = await axios.get(path + '/vendedores', config);
+        setData(data);
+        return data;
+    } catch (e) {
+        console.error(`Error en fetch getSellers: ${e.message}`);
+        return []; // !!
+    }
 }
 
 export const getClients = async (sellerNum) => {
-    const { data } = await axios.get(path + `/vendedores/${sellerNum}/clientes`, config);
-    return data;
+    try {
+        const { data } = await axios.get(path + `/vendedores/${sellerNum}/clientes`, config);
+        return data;
+    } catch (e) {
+        console.error(`Error en fetch getClients: ${e.message}`);
+        return [];
+    }
 }
 
 export const getMessages = async (clientID) => {
-    const { data } = await axios.get(path + `/vendedores/${clientID}/mensajes`, config);
-    return data;
+    try {
+        const { data } = await axios.get(path + `/vendedores/${clientID}/mensajes`, config);
+        return data;
+    } catch (e) {
+        console.error(`Error en fetch getClients: ${e.message}`);
+        return [];
+    }
 }
 
 export const getAllClients = async () => {
-    const { data } = await axios.get(`${path}/vendedores/allClients`, config)
-    return data
+    try {
+        const { data } = await axios.get(`${path}/vendedores/allClients`, config)
+        return data
+    } catch (e) {
+        console.error(`Error en fetch getClients: ${e.message}`);
+        return [];
+    }
 }

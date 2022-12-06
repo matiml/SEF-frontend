@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -20,17 +20,19 @@ root.render(
   <>
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<App />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/recover" element={<PasswordRecovery />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/sessions" element={<Home />} />
-          <Route path="/control" element={<StepsControl />} />
-          <Route path="/settings" element={<Preferences />}>
-            <Route path="/settings/bot" element={<BotConfig />} />
-          </Route>
-        </Routes>
+        <Suspense fallback={<h3>Cargando...</h3>}>
+          <Routes>
+            <Route path="/" element={<App />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/recover" element={<PasswordRecovery />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/sessions" element={<Home />} />
+            <Route path="/control" element={<StepsControl />} />
+            <Route path="/settings" element={<Preferences />}>
+              <Route path="/settings/bot" element={<BotConfig />} />
+            </Route>
+          </Routes>
+        </Suspense>
         <ReactQueryDevtools />
       </BrowserRouter>
     </QueryClientProvider>
