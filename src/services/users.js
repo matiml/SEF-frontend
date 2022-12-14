@@ -3,7 +3,7 @@ import Swal from 'sweetalert2';
 
 const path = process.env.REACT_APP_API_URL;
 
-export const createUser = async (newUser) => {
+export const createUser = async (newUser, navigate) => {
     await axios.post(`${path}/signUp`, newUser)
         .then(res => {
             console.log(res)
@@ -13,7 +13,7 @@ export const createUser = async (newUser) => {
                     icon: 'success',
                 }).then(() => {
                     setTimeout(() => {
-                        window.location.href = '/login'
+                        navigate('/login')
                     }, 900)
                 })
             } else {
@@ -28,7 +28,7 @@ export const createUser = async (newUser) => {
         .catch(e => console.log(e))
 }
 
-export const authorizeUser = async (user) => {
+export const authorizeUser = async (user, navigate) => {
     await axios.post(`${path}/auth`, user)
         .then(res => {
             const loggedUser = {
@@ -42,7 +42,7 @@ export const authorizeUser = async (user) => {
                 console.log('Autorizado')
 
                 setTimeout(() => {
-                    window.location.href = '/sessions'
+                    navigate('/sessions')
                 }, 700)
             }
         })
@@ -57,7 +57,7 @@ export const authorizeUser = async (user) => {
         })
 }
 
-export const passwordRecovery = async (userBody) => {
+export const passwordRecovery = async (userBody, navigate) => {
     await axios.post(`${path}/RecoveryPassword`, userBody)
         .then(res => {
             console.log(res);
@@ -68,7 +68,7 @@ export const passwordRecovery = async (userBody) => {
             })
 
             setTimeout(() => {
-                window.location.href = '/login'
+                navigate('/login')
             }, 500)
         })
         .catch(e => {

@@ -1,9 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { passwordRecovery } from '../../../services/users';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import './PasswordRecovery.scss';
 
 function PasswordRecovery() {
+  const navigate = useNavigate();
+  
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -12,7 +15,7 @@ function PasswordRecovery() {
       password: data.get('password'),
       role: data.get('role')
     }
-    passwordRecovery(newUserPassword);
+    passwordRecovery(newUserPassword, navigate);
     event.currentTarget.reset();
   };
 

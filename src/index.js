@@ -1,8 +1,7 @@
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools'
 import './index.scss';
 import Home from './components/Home/Home';
 import App from './App';
@@ -19,7 +18,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <>
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
+      <HashRouter>
         <Suspense fallback={<h3>Cargando...</h3>}>
           <Routes>
             <Route path="/" element={<App />} />
@@ -33,8 +32,7 @@ root.render(
             </Route>
           </Routes>
         </Suspense>
-        <ReactQueryDevtools />
-      </BrowserRouter>
+      </HashRouter>
     </QueryClientProvider>
   </>
 );

@@ -2,6 +2,21 @@
   "name": "horus",
   "version": "0.1.0",
   "private": true,
+  "main": "electron/main.ts",
+  "homepage": "./",
+  "author": {
+    "name": "Arbelo Leandro y Ledesma Matias"
+  },
+  "build": {
+    "appId": "SEF",
+    "productName": "Smart Effortless Filter",
+    "files": [
+      "build/**/*",
+      "electron/main.ts",
+      "package.json"
+    ],
+    "extends": null
+  },
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
@@ -20,13 +35,23 @@
     "sass": "^1.54.8",
     "socket.io-client": "^4.5.2",
     "sweetalert2": "^11.5.0",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "typescript": "^4.9.4",
+    "@types/react-dom": "^18.0.9",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.9",
+    "@types/react": "^18.0.26",
+    "electron-is": "^3.0.0"
+
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "PUBLIC_URL=/ react-scripts build",
+    "build-electron": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "electron:build": "npm run build-electron && electron-builder build --publish never",
+    "electron:start": "concurrently \"npm start\" \"wait-on http://localhost:3000 && electron .\""
   },
   "eslintConfig": {
     "extends": [
@@ -45,5 +70,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/react-router-dom": "^5.3.3",
+    "concurrently": "^7.6.0",
+    "electron": "^22.0.0",
+    "electron-builder": "^23.6.0",
+    "wait-on": "^6.0.1"
   }
 }
